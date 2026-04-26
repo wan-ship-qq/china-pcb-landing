@@ -1,4 +1,5 @@
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { VRMLLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/VRMLLoader.js';
 
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
@@ -56,40 +57,62 @@ const group = new THREE.Group();
 group.rotation.x = -0.28;
 scene.add(group);
 
-const texture = new THREE.TextureLoader().load('assets/pcb-board.jpg');
-texture.colorSpace = THREE.SRGBColorSpace;
-texture.anisotropy = 8;
+const loader = new VRMLLoader();
+const modelShell = new THREE.Group();
+group.add(modelShell);
 
-const boardWidth = 5.25;
-const boardHeight = 3.55;
-const boardDepth = 0.12;
-
-const top = new THREE.Mesh(
-  new THREE.PlaneGeometry(boardWidth, boardHeight, 32, 20),
-  new THREE.MeshStandardMaterial({ map: texture, roughness: 0.42, metalness: 0.18 })
+const platform = new THREE.Mesh(
+  new THREE.CylinderGeometry(2.85, 2.85, 0.035, 96),
+  new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.08 })
 );
-top.position.z = boardDepth / 2 + 0.003;
-group.add(top);
+platform.position.y = -1.35;
+group.add(platform);
 
-const body = new THREE.Mesh(
-  new THREE.BoxGeometry(boardWidth, boardHeight, boardDepth),
-  new THREE.MeshStandardMaterial({ color: 0x070b0f, roughness: 0.72, metalness: 0.22 })
+const ring = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.CylinderGeometry(2.9, 2.9, 0.04, 96)),
+  new THREE.LineBasicMaterial({ color: 0x00ff88, transparent: true, opacity: 0.28 })
 );
-body.position.z = 0;
-group.add(body);
+ring.position.copy(platform.position);
+group.add(ring);
 
-const edge = new THREE.LineSegments(
-  new THREE.EdgesGeometry(new THREE.BoxGeometry(boardWidth, boardHeight, boardDepth + 0.01)),
-  new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 })
-);
-group.add(edge);
+loader.load(
+  'assets/models/drone.wrl',
+  (object) => {
+    modelShell.add(object);
 
-const glow = new THREE.Mesh(
-  new THREE.PlaneGeometry(boardWidth * 1.08, boardHeight * 1.12),
-  new THREE.MeshBasicMaterial({ color: 0x00ff88, transparent: true, opacity: 0.055, side: THREE.DoubleSide })
+    object.traverse((child) => {
+      if (!child.isMesh) return;
+      child.castShadow = true;
+      child.receiveShadow = true;
+      if (child.material) {
+        child.material.side = THREE.DoubleSide;
+        child.material.needsUpdate = true;
+      }
+    });
+
+    const box = new THREE.Box3().setFromObject(object);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const maxAxis = Math.max(size.x, size.y, size.z) || 1;
+    const scale = 3.9 / maxAxis;
+
+    object.position.sub(center);
+    object.scale.setScalar(scale);
+    object.rotation.x = -Math.PI / 2;
+
+    const scaledBox = new THREE.Box3().setFromObject(object);
+    const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
+    object.position.sub(scaledCenter);
+  },
+  undefined,
+  () => {
+    const fallback = new THREE.Mesh(
+      new THREE.BoxGeometry(3.8, 0.18, 2.4),
+      new THREE.MeshStandardMaterial({ color: 0x101722, roughness: 0.45, metalness: 0.35 })
+    );
+    modelShell.add(fallback);
+  }
 );
-glow.position.z = -0.08;
-group.add(glow);
 
 scene.add(new THREE.AmbientLight(0x9fcfff, 1.4));
 const key = new THREE.DirectionalLight(0x00d4ff, 2.1);
