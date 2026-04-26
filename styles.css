@@ -48,3 +48,5 @@ h1,h2,h3,p{margin-top:0}h1,h2{font-family:var(--font-display);font-weight:700;le
 .delivery-icon img{width:30px;height:30px;object-fit:contain;filter:invert(1) brightness(1.9) drop-shadow(0 0 10px rgba(150,230,255,.16));opacity:.88}.delivery-icon:before,.delivery-icon:after{display:none}.delivery-grid article:hover .delivery-icon img{opacity:1;filter:invert(1) brightness(2.15) drop-shadow(0 0 14px rgba(150,230,255,.24))}
 /* Generated SVG delivery icons */
 .delivery-icon{color:var(--accent)}.delivery-icon img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(150,230,255,.18));opacity:.9}.delivery-grid article:hover .delivery-icon img{opacity:1;filter:drop-shadow(0 0 16px rgba(150,230,255,.28))}
+/* Delivery icons tuning */
+.delivery-icon{width:68px;height:68px;color:rgba(255,255,255,.94)}.delivery-icon img{width:44px;height:44px;filter:drop-shadow(0 0 14px rgba(255,255,255,.12)) drop-shadow(0 0 18px rgba(150,230,255,.12));opacity:.96}.delivery-grid article:hover .delivery-icon img{filter:drop-shadow(0 0 16px rgba(255,255,255,.18)) drop-shadow(0 0 22px rgba(150,230,255,.2))}
