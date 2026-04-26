@@ -8,7 +8,7 @@
   <meta property="og:title" content="Закажи свою плату из Китая — просто загрузи Gerber" />
   <meta property="og:description" content="JLCPCB, PCBA-монтаж, компоненты под заказ, помощь с логистикой и таможней." />
   <meta property="og:type" content="website" />
-  <link rel="stylesheet" href="styles.css?v=20260426-glb-model" />
+  <link rel="stylesheet" href="styles.css?v=20260426-model-viewer" />
 </head>
 <body>
   <div class="noise"></div>
@@ -39,13 +39,23 @@
           <a class="btn secondary" href="#how">Как это работает</a>
         </div>
       </div>
-      <div class="hero-visual" aria-label="3D-анимация платы">
-        <canvas id="pcbCanvas"></canvas>
-        <div class="scan-card">
-          <b>PCB 3D PREVIEW</b>
-          <span>drag to rotate · uploaded 3D model</span>
-          <i>status: GLB model loaded</i>
-        </div>
+      <div class="hero-visual model-stage" aria-label="Интерактивная 3D-модель платы">
+        <model-viewer
+          id="pcbModel"
+          src="assets/models/drone.glb"
+          camera-controls
+          auto-rotate
+          auto-rotate-delay="1200"
+          rotation-per-second="18deg"
+          interaction-prompt="auto"
+          shadow-intensity="0.45"
+          exposure="1.35"
+          tone-mapping="commerce"
+          camera-orbit="0deg 68deg auto"
+          min-camera-orbit="auto 20deg auto"
+          max-camera-orbit="auto 88deg auto"
+          ar="false">
+        </model-viewer>
       </div>
     </section>
 
@@ -157,6 +167,7 @@
     </div>
   </footer>
 
-  <script type="module" src="script.js?v=20260426-glb-model"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script type="module" src="script.js?v=20260426-model-viewer"></script>
 </body>
 </html>
