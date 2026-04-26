@@ -45,48 +45,90 @@ quoteForm?.addEventListener('submit', async (event) => {
 
 const canvas = document.querySelector('#pcbCanvas');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-camera.position.set(0, 3.2, 7);
+const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+camera.position.set(0, 1.2, 7.2);
+
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const group = new THREE.Group();
+group.rotation.x = -0.28;
 scene.add(group);
 
-const layerData = [
-  { y: .72, color: 0x00ff88, wire: false, name: 'solder mask' },
-  { y: .34, color: 0xd9942b, wire: true, name: 'copper top' },
-  { y: 0, color: 0x162235, wire: false, name: 'substrate' },
-  { y: -.34, color: 0xd9942b, wire: true, name: 'copper bottom' },
-  { y: -.72, color: 0x00d4ff, wire: true, name: 'silkscreen' }
-];
+const texture = new THREE.TextureLoader().load('assets/pcb-board.jpg');
+texture.colorSpace = THREE.SRGBColorSpace;
+texture.anisotropy = 8;
 
-layerData.forEach((l, idx) => {
-  const geo = new THREE.BoxGeometry(4.7, .035, 3.05, 1, 1, 1);
-  const mat = new THREE.MeshBasicMaterial({ color: l.color, transparent: true, opacity: l.wire ? .38 : .72, wireframe: l.wire });
-  const mesh = new THREE.Mesh(geo, mat);
-  mesh.position.y = l.y;
-  mesh.rotation.x = -.18;
-  group.add(mesh);
+const boardWidth = 5.25;
+const boardHeight = 3.55;
+const boardDepth = 0.12;
 
-  for (let i = 0; i < 14; i++) {
-    const padGeo = new THREE.CylinderGeometry(.035 + (i % 3) * .012, .035 + (i % 3) * .012, .01, 20);
-    const padMat = new THREE.MeshBasicMaterial({ color: idx % 2 ? 0x00d4ff : 0x00ff88, transparent: true, opacity: .74 });
-    const pad = new THREE.Mesh(padGeo, padMat);
-    pad.rotation.x = Math.PI / 2;
-    pad.position.set(-2 + (i % 7) * .66, l.y + .035, -1 + Math.floor(i / 7) * 1.7);
-    group.add(pad);
-  }
-});
-
-const edges = new THREE.LineSegments(
-  new THREE.EdgesGeometry(new THREE.BoxGeometry(4.9, 1.65, 3.2)),
-  new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: .22 })
+const top = new THREE.Mesh(
+  new THREE.PlaneGeometry(boardWidth, boardHeight, 32, 20),
+  new THREE.MeshStandardMaterial({ map: texture, roughness: 0.42, metalness: 0.18 })
 );
-edges.rotation.x = -.18;
-group.add(edges);
+top.position.z = boardDepth / 2 + 0.003;
+group.add(top);
 
-scene.add(new THREE.AmbientLight(0xffffff, 1));
+const body = new THREE.Mesh(
+  new THREE.BoxGeometry(boardWidth, boardHeight, boardDepth),
+  new THREE.MeshStandardMaterial({ color: 0x070b0f, roughness: 0.72, metalness: 0.22 })
+);
+body.position.z = 0;
+group.add(body);
+
+const edge = new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(boardWidth, boardHeight, boardDepth + 0.01)),
+  new THREE.LineBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35 })
+);
+group.add(edge);
+
+const glow = new THREE.Mesh(
+  new THREE.PlaneGeometry(boardWidth * 1.08, boardHeight * 1.12),
+  new THREE.MeshBasicMaterial({ color: 0x00ff88, transparent: true, opacity: 0.055, side: THREE.DoubleSide })
+);
+glow.position.z = -0.08;
+group.add(glow);
+
+scene.add(new THREE.AmbientLight(0x9fcfff, 1.4));
+const key = new THREE.DirectionalLight(0x00d4ff, 2.1);
+key.position.set(3, 4, 5);
+scene.add(key);
+const rim = new THREE.DirectionalLight(0x00ff88, 1.4);
+rim.position.set(-3, -2, 4);
+scene.add(rim);
+
+let dragging = false;
+let lastX = 0;
+let lastY = 0;
+let targetRotY = 0.12;
+let targetRotX = -0.28;
+
+function pointerPos(event) {
+  const p = event.touches?.[0] || event;
+  return { x: p.clientX, y: p.clientY };
+}
+
+canvas.addEventListener('pointerdown', (event) => {
+  dragging = true;
+  canvas.setPointerCapture?.(event.pointerId);
+  const p = pointerPos(event);
+  lastX = p.x;
+  lastY = p.y;
+});
+canvas.addEventListener('pointermove', (event) => {
+  if (!dragging) return;
+  const p = pointerPos(event);
+  const dx = p.x - lastX;
+  const dy = p.y - lastY;
+  lastX = p.x;
+  lastY = p.y;
+  targetRotY += dx * 0.01;
+  targetRotX = Math.max(-1.05, Math.min(0.65, targetRotX + dy * 0.008));
+});
+canvas.addEventListener('pointerup', () => { dragging = false; });
+canvas.addEventListener('pointerleave', () => { dragging = false; });
 
 function resize() {
   const rect = canvas.parentElement.getBoundingClientRect();
@@ -98,13 +140,10 @@ window.addEventListener('resize', resize);
 resize();
 
 function animate(t) {
-  group.rotation.y = Math.sin(t * 0.00045) * 0.45;
-  group.rotation.z = Math.sin(t * 0.0003) * 0.06;
-  group.children.forEach((obj, i) => {
-    if (obj.isMesh && obj.geometry.type === 'BoxGeometry') {
-      obj.position.y += Math.sin(t * 0.0012 + i) * 0.0008;
-    }
-  });
+  if (!dragging) targetRotY += 0.0022;
+  group.rotation.x += (targetRotX - group.rotation.x) * 0.08;
+  group.rotation.y += (targetRotY - group.rotation.y) * 0.08;
+  group.position.y = Math.sin(t * 0.001) * 0.06;
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
