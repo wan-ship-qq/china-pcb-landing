@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Платы из Китая — загрузите Gerber и получите расчёт</title>
+  <meta name="description" content="Заказ печатных плат, PCBA-монтажа и компонентов из Китая в Россию. Загрузите Gerber — рассчитаем стоимость и сроки." />
+  <meta property="og:title" content="Закажи свою плату из Китая — просто загрузи Gerber" />
+  <meta property="og:description" content="JLCPCB, PCBA-монтаж, компоненты под заказ, помощь с логистикой и таможней." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="logo" href="#hero"><span>PCB</span> SUPPLY</a>
+    <nav>
+      <a href="#how">Как работает</a>
+      <a href="#benefits">Преимущества</a>
+      <a href="#upload">Заявка</a>
+      <a href="#works">Примеры</a>
+    </nav>
+    <a class="top-cta" href="#upload">Загрузить Gerber</a>
+  </header>
+
+  <main>
+    <section id="hero" class="hero section">
+      <div class="hero-copy">
+        <div class="eyebrow">PCB · PCBA · Components · China → Russia</div>
+        <h1>Закажи свою плату из Китая — просто загрузи Gerber</h1>
+        <p class="lead">Рассчитаем стоимость, согласуем сроки, поможем с производством, компонентами, доставкой и таможней.</p>
+        <div class="hero-facts">
+          <span>Цена — после расчёта</span>
+          <span>Сроки — по ТЗ</span>
+          <span>Гарантия согласования</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#upload">Загрузить Gerber файлы</a>
+          <a class="btn secondary" href="#how">Как это работает</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="3D-анимация платы">
+        <canvas id="pcbCanvas"></canvas>
+        <div class="scan-card">
+          <b>GERBER ANALYSIS</b>
+          <span>layers: 4 / mask: green / copper: 1oz</span>
+          <i>status: ready for quote</i>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="section-head">
+        <span class="tag">PROCESS</span>
+        <h2>Как это работает</h2>
+      </div>
+      <div class="steps">
+        <article><span>01</span><h3>Загружаете Gerber</h3><p>Прикрепите архив или файлы платы и укажите базовые параметры заказа.</p></article>
+        <article><span>02</span><h3>Считаем и согласовываем</h3><p>Проверяем файлы, считаем стоимость, сроки и варианты производства.</p></article>
+        <article><span>03</span><h3>Заказываем плату</h3><p>Запускаем производство, контролируем доставку и передаём готовый заказ.</p></article>
+      </div>
+    </section>
+
+    <section id="benefits" class="section split">
+      <div>
+        <span class="tag">ADVANTAGES</span>
+        <h2>Производство, монтаж и компоненты в одном окне</h2>
+        <p class="muted">Подходит для прототипов, малых партий и регулярных заказов электроники.</p>
+      </div>
+      <div class="benefit-grid">
+        <article><h3>JLCPCB</h3><p>Помощь с заказом печатных плат и подбором параметров.</p></article>
+        <article><h3>PCBA-монтаж</h3><p>Сборка плат по BOM и CPL, согласование замены компонентов.</p></article>
+        <article><h3>Компоненты под заказ</h3><p>Поиск и закупка электронных компонентов в Китае.</p></article>
+        <article><h3>Логистика и таможня</h3><p>Подскажем оптимальный маршрут доставки в Россию.</p></article>
+      </div>
+    </section>
+
+    <section id="upload" class="section upload-section">
+      <div class="section-head">
+        <span class="tag">QUOTE REQUEST</span>
+        <h2>Загрузите файлы для расчёта</h2>
+        <p>Поддерживаются .zip, .rar, .gbr. Форма готова для подключения Formspree или EmailJS.</p>
+      </div>
+      <form class="quote-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
+        <label class="dropzone" for="fileInput">
+          <input id="fileInput" name="files" type="file" accept=".zip,.rar,.gbr" multiple />
+          <span class="drop-icon">⌁</span>
+          <b>Перетащите Gerber сюда или нажмите для выбора</b>
+          <small id="fileName">ZIP / RAR / GBR, до лимита вашего сервиса формы</small>
+        </label>
+        <div class="form-grid">
+          <label>Имя<input name="name" type="text" placeholder="Андрей" required /></label>
+          <label>Телефон / Telegram<input name="contact" type="text" placeholder="+7... или @username" required /></label>
+        </div>
+        <label>Комментарий<textarea name="comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа"></textarea></label>
+        <input type="hidden" name="source" value="china-pcb-landing" />
+        <button class="btn primary form-btn" type="submit">Отправить заявку</button>
+      </form>
+    </section>
+
+    <section id="works" class="section">
+      <div class="section-head">
+        <span class="tag">WORKS</span>
+        <h2>Примеры работ</h2>
+        <p>Сейчас стоят технологичные плейсхолдеры. Позже заменим на реальные фото плат.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card"><span>4-layer PCB</span></div>
+        <div class="work-card"><span>PCBA prototype</span></div>
+        <div class="work-card"><span>Components batch</span></div>
+        <div class="work-card"><span>Green solder mask</span></div>
+        <div class="work-card"><span>Black solder mask</span></div>
+        <div class="work-card"><span>Fast quote</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <b>PCB SUPPLY</b>
+      <p>Заказ плат, монтажа и компонентов из Китая в Россию.</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.avito.ru/" target="_blank" rel="noreferrer">Авито</a>
+      <a href="https://t.me/username" target="_blank" rel="noreferrer">Telegram</a>
+      <a href="tel:+70000000000">+7 000 000-00-00</a>
+    </div>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
