@@ -1,5 +1,5 @@
 import * as THREE from 'https://esm.sh/three@0.160.0';
-import { VRMLLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/VRMLLoader.js';
+import { GLTFLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
@@ -57,7 +57,7 @@ const group = new THREE.Group();
 group.rotation.x = -0.28;
 scene.add(group);
 
-const loader = new VRMLLoader();
+const loader = new GLTFLoader();
 const modelShell = new THREE.Group();
 group.add(modelShell);
 
@@ -76,8 +76,9 @@ ring.position.copy(platform.position);
 group.add(ring);
 
 loader.load(
-  'assets/models/drone.wrl',
-  (object) => {
+  'assets/models/drone.glb',
+  (gltf) => {
+    const object = gltf.scene;
     modelShell.add(object);
 
     object.traverse((child) => {
@@ -86,6 +87,8 @@ loader.load(
       child.receiveShadow = true;
       if (child.material) {
         child.material.side = THREE.DoubleSide;
+        child.material.metalness = Math.min(child.material.metalness ?? 0.2, 0.55);
+        child.material.roughness = child.material.roughness ?? 0.48;
         child.material.needsUpdate = true;
       }
     });
@@ -94,11 +97,11 @@ loader.load(
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     const maxAxis = Math.max(size.x, size.y, size.z) || 1;
-    const scale = 3.9 / maxAxis;
+    const scale = 4.25 / maxAxis;
 
     object.position.sub(center);
     object.scale.setScalar(scale);
-    object.rotation.x = -Math.PI / 2;
+    object.rotation.x = -0.18;
 
     const scaledBox = new THREE.Box3().setFromObject(object);
     const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
