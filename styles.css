@@ -46,3 +46,5 @@ h1,h2,h3,p{margin-top:0}h1,h2{font-family:var(--font-display);font-weight:700;le
 .delivery-grid article:hover .delivery-icon{border-color:var(--line-strong);box-shadow:0 0 34px rgba(150,230,255,.12)}
 /* User-provided delivery PNG icons */
 .delivery-icon img{width:30px;height:30px;object-fit:contain;filter:invert(1) brightness(1.9) drop-shadow(0 0 10px rgba(150,230,255,.16));opacity:.88}.delivery-icon:before,.delivery-icon:after{display:none}.delivery-grid article:hover .delivery-icon img{opacity:1;filter:invert(1) brightness(2.15) drop-shadow(0 0 14px rgba(150,230,255,.24))}
+/* Generated SVG delivery icons */
+.delivery-icon{color:var(--accent)}.delivery-icon img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(150,230,255,.18));opacity:.9}.delivery-grid article:hover .delivery-icon img{opacity:1;filter:drop-shadow(0 0 16px rgba(150,230,255,.28))}
