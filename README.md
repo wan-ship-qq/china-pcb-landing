@@ -18,7 +18,7 @@ python3 -m http.server 3000
 В `index.html` замени:
 
 ```html
-action="https://formspree.io/f/YOUR_FORM_ID"
+action="https://formspree.io/f/mdayjyja"
 ```
 
 на свой endpoint Formspree.
