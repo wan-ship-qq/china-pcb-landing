@@ -79,7 +79,7 @@
       <div class="section-head">
         <span class="tag">QUOTE REQUEST</span>
         <h2>Загрузите файлы для расчёта</h2>
-        <p>Поддерживаются .zip, .rar, .gbr. Файлы и контакты уйдут на почту через Formspree.</p>
+        <p>Поддерживаются .zip, .rar, .gbr. Файлы, email и контакты уйдут на почту через Formspree.</p>
       </div>
       <form class="quote-form" id="quoteForm" action="https://formspree.io/f/mdayjyja" method="POST" enctype="multipart/form-data">
         <label class="dropzone" for="fileInput">
@@ -90,6 +90,7 @@
         </label>
         <div class="form-grid">
           <label>Имя<input name="name" type="text" placeholder="Андрей" required /></label>
+          <label>Email<input name="email" type="email" placeholder="name@example.com" required /></label>
           <label>Телефон / Telegram<input name="contact" type="text" placeholder="+7... или @username" required /></label>
         </div>
         <label>Комментарий<textarea name="comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа"></textarea></label>
