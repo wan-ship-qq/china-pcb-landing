@@ -67,3 +67,43 @@ lightbox?.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeLightbox();
 });
+
+// Premium minimal motion: section reveal, PCB trace parallax, upload scan state
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduceMotion) {
+  const revealTargets = document.querySelectorAll('.section, .footer');
+  revealTargets.forEach((el) => el.classList.add('reveal-init'));
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  revealTargets.forEach((el) => revealObserver.observe(el));
+
+  const traces = document.querySelector('.pcb-traces');
+  let raf = null;
+  window.addEventListener('pointermove', (event) => {
+    if (!traces) return;
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const mx = (event.clientX / window.innerWidth - 0.5).toFixed(3);
+      const my = (event.clientY / window.innerHeight - 0.5).toFixed(3);
+      traces.style.setProperty('--mx', mx);
+      traces.style.setProperty('--my', my);
+    });
+  }, { passive: true });
+}
+
+const dropzone = document.querySelector('.dropzone');
+['dragenter', 'dragover'].forEach((eventName) => {
+  dropzone?.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    dropzone.classList.add('is-dragover');
+  });
+});
+['dragleave', 'drop'].forEach((eventName) => {
+  dropzone?.addEventListener(eventName, () => dropzone.classList.remove('is-dragover'));
+});
