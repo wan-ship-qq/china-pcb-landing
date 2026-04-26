@@ -18,10 +18,10 @@ python3 -m http.server 3000
 В `index.html` замени:
 
 ```html
-action="https://formspree.io/f/mdayjyja"
+action="https://forminit.com/f/hn89mdl4qm2"
 ```
 
-на свой endpoint Formspree.
+на свой endpoint Forminit.
 
 Поля формы готовы: имя, email, телефон/Telegram, комментарий и файлы. После подключения реального endpoint появится AJAX-отправка и сообщение об успехе/ошибке.
 
