@@ -4,7 +4,7 @@ const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
 fileInput?.addEventListener('change', () => {
   const files = [...fileInput.files].map(f => f.name).join(', ');
-  fileName.textContent = files || 'ZIP / RAR / GBR, до лимита вашего сервиса формы';
+  fileName.textContent = files || 'ZIP / RAR / GBR';
 });
 
 const quoteForm = document.querySelector('#quoteForm');
@@ -31,7 +31,7 @@ quoteForm?.addEventListener('submit', async (event) => {
     });
     if (!response.ok) throw new Error('send failed');
     quoteForm.reset();
-    fileName.textContent = 'ZIP / RAR / GBR, до лимита вашего сервиса формы';
+    fileName.textContent = 'ZIP / RAR / GBR';
     formStatus.textContent = 'Заявка отправлена. Мы свяжемся с вами для расчёта.';
     formStatus.className = 'form-status ok';
   } catch (error) {
