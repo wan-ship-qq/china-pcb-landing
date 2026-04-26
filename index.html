@@ -30,8 +30,8 @@
         <h1>Закажи свою плату из Китая — просто загрузи Gerber</h1>
         <p class="lead">Рассчитаем стоимость, согласуем сроки, поможем с производством, компонентами, доставкой и таможней.</p>
         <div class="hero-facts">
-          <span>Цена — после расчёта</span>
-          <span>Сроки — по ТЗ</span>
+          <span>От 1000 ₽ за 5 плат</span>
+          <span>Сроки — после расчёта</span>
           <span>Гарантия согласования</span>
         </div>
         <div class="hero-actions">
@@ -81,7 +81,7 @@
         <h2>Загрузите файлы для расчёта</h2>
         <p>Поддерживаются .zip, .rar, .gbr. Форма готова для подключения Formspree или EmailJS.</p>
       </div>
-      <form class="quote-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
+      <form class="quote-form" id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
         <label class="dropzone" for="fileInput">
           <input id="fileInput" name="files" type="file" accept=".zip,.rar,.gbr" multiple />
           <span class="drop-icon">⌁</span>
@@ -95,6 +95,7 @@
         <label>Комментарий<textarea name="comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа"></textarea></label>
         <input type="hidden" name="source" value="china-pcb-landing" />
         <button class="btn primary form-btn" type="submit">Отправить заявку</button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       </form>
     </section>
 
@@ -102,15 +103,15 @@
       <div class="section-head">
         <span class="tag">WORKS</span>
         <h2>Примеры работ</h2>
-        <p>Сейчас стоят технологичные плейсхолдеры. Позже заменим на реальные фото плат.</p>
+        <p>Загрузим реальные фото готовых плат: производство, монтаж, компоненты, упаковка.</p>
       </div>
       <div class="work-grid">
-        <div class="work-card"><span>4-layer PCB</span></div>
-        <div class="work-card"><span>PCBA prototype</span></div>
-        <div class="work-card"><span>Components batch</span></div>
-        <div class="work-card"><span>Green solder mask</span></div>
-        <div class="work-card"><span>Black solder mask</span></div>
-        <div class="work-card"><span>Fast quote</span></div>
+        <div class="work-card"><img src="assets/works/work-1.jpg" alt="Пример готовой печатной платы" onerror="this.remove()"><span>4-layer PCB</span></div>
+        <div class="work-card"><img src="assets/works/work-2.jpg" alt="Пример PCBA-монтажа" onerror="this.remove()"><span>PCBA prototype</span></div>
+        <div class="work-card"><img src="assets/works/work-3.jpg" alt="Партия электронных компонентов" onerror="this.remove()"><span>Components batch</span></div>
+        <div class="work-card"><img src="assets/works/work-4.jpg" alt="Плата с зелёной паяльной маской" onerror="this.remove()"><span>Green solder mask</span></div>
+        <div class="work-card"><img src="assets/works/work-5.jpg" alt="Плата с чёрной паяльной маской" onerror="this.remove()"><span>Black solder mask</span></div>
+        <div class="work-card"><img src="assets/works/work-6.jpg" alt="Готовый заказ плат" onerror="this.remove()"><span>Ready order</span></div>
       </div>
     </section>
   </main>
@@ -121,9 +122,9 @@
       <p>Заказ плат, монтажа и компонентов из Китая в Россию.</p>
     </div>
     <div class="footer-links">
-      <a href="https://www.avito.ru/" target="_blank" rel="noreferrer">Авито</a>
-      <a href="https://t.me/username" target="_blank" rel="noreferrer">Telegram</a>
-      <a href="tel:+70000000000">+7 000 000-00-00</a>
+      <a href="https://www.avito.ru/moskva/predlozheniya_uslug/zakaz_pechatnyh_plat_na_jlcpcb._oplata_i_dostavka_7260492690" target="_blank" rel="noreferrer">Авито</a>
+      <a href="https://t.me/crptdvd" target="_blank" rel="noreferrer">Telegram</a>
+      <a href="https://t.me/crptdvd" target="_blank" rel="noreferrer">@crptdvd</a>
     </div>
   </footer>
 

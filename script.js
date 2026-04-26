@@ -7,6 +7,42 @@ fileInput?.addEventListener('change', () => {
   fileName.textContent = files || 'ZIP / RAR / GBR, до лимита вашего сервиса формы';
 });
 
+const quoteForm = document.querySelector('#quoteForm');
+const formStatus = document.querySelector('#formStatus');
+quoteForm?.addEventListener('submit', async (event) => {
+  const action = quoteForm.getAttribute('action') || '';
+  if (action.includes('YOUR_FORM_ID')) {
+    event.preventDefault();
+    formStatus.textContent = 'Форма ещё не подключена: нужен реальный endpoint Formspree/Getform.';
+    formStatus.className = 'form-status error';
+    return;
+  }
+  event.preventDefault();
+  const button = quoteForm.querySelector('button[type="submit"]');
+  button.disabled = true;
+  button.textContent = 'Отправляем...';
+  formStatus.textContent = '';
+  formStatus.className = 'form-status';
+  try {
+    const response = await fetch(action, {
+      method: 'POST',
+      body: new FormData(quoteForm),
+      headers: { Accept: 'application/json' }
+    });
+    if (!response.ok) throw new Error('send failed');
+    quoteForm.reset();
+    fileName.textContent = 'ZIP / RAR / GBR, до лимита вашего сервиса формы';
+    formStatus.textContent = 'Заявка отправлена. Мы свяжемся с вами для расчёта.';
+    formStatus.className = 'form-status ok';
+  } catch (error) {
+    formStatus.textContent = 'Не удалось отправить форму. Напишите напрямую в Telegram: @crptdvd';
+    formStatus.className = 'form-status error';
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Отправить заявку';
+  }
+});
+
 const canvas = document.querySelector('#pcbCanvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);

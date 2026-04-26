@@ -23,4 +23,13 @@ action="https://formspree.io/f/YOUR_FORM_ID"
 
 на свой endpoint Formspree.
 
-Поля формы уже готовы для отправки файла и данных клиента.
+Поля формы готовы. После подключения реального endpoint появится AJAX-отправка и сообщение об успехе/ошибке.
+
+## Фото работ
+
+Загрузи реальные фото в `assets/works/` с именами `work-1.jpg` ... `work-6.jpg`. Лендинг автоматически покажет их вместо технологичных плейсхолдеров.
+
+## Контакты
+
+- Авито: https://www.avito.ru/moskva/predlozheniya_uslug/zakaz_pechatnyh_plat_na_jlcpcb._oplata_i_dostavka_7260492690
+- Telegram: https://t.me/crptdvd
