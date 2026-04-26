@@ -8,7 +8,7 @@
   <meta property="og:title" content="Закажи свою плату из Китая — просто загрузи Gerber" />
   <meta property="og:description" content="JLCPCB, PCBA-монтаж, компоненты под заказ, помощь с логистикой и таможней." />
   <meta property="og:type" content="website" />
-  <link rel="stylesheet" href="styles.css?v=20260426-works" />
+  <link rel="stylesheet" href="styles.css?v=20260426-lightbox" />
 </head>
 <body>
   <div class="noise"></div>
@@ -131,15 +131,20 @@
         <h2>Примеры работ</h2>
       </div>
       <div class="work-grid">
-        <div class="work-card"><img src="assets/works/work-1.jpg" alt="Упакованный заказ печатных плат" onerror="this.remove()"><span>Упаковка заказа</span></div>
-        <div class="work-card"><img src="assets/works/work-2.jpg" alt="Коробки JLCPCB в поставке" onerror="this.remove()"><span>JLCPCB коробки</span></div>
-        <div class="work-card"><img src="assets/works/work-3.jpg" alt="Доставка груза из Китая" onerror="this.remove()"><span>Груз из Китая</span></div>
-        <div class="work-card"><img src="assets/works/work-4.jpg" alt="Партия зелёных печатных плат" onerror="this.remove()"><span>Партия плат</span></div>
-        <div class="work-card"><img src="assets/works/work-5.jpg" alt="Серийные электронные модули" onerror="this.remove()"><span>Серийные модули</span></div>
-        <div class="work-card"><img src="assets/works/work-6.jpg" alt="Готовые красные и зелёные PCB" onerror="this.remove()"><span>Готовые PCB</span></div>
+        <button class="work-card" type="button" data-full="assets/works/work-1.jpg" data-title="Упаковка заказа"><img src="assets/works/work-1.jpg" alt="Упакованный заказ печатных плат" onerror="this.remove()"><span>Упаковка заказа</span></button>
+        <button class="work-card" type="button" data-full="assets/works/work-2.jpg" data-title="JLCPCB коробки"><img src="assets/works/work-2.jpg" alt="Коробки JLCPCB в поставке" onerror="this.remove()"><span>JLCPCB коробки</span></button>
+        <button class="work-card" type="button" data-full="assets/works/work-3.jpg" data-title="Груз из Китая"><img src="assets/works/work-3.jpg" alt="Доставка груза из Китая" onerror="this.remove()"><span>Груз из Китая</span></button>
+        <button class="work-card" type="button" data-full="assets/works/work-4.jpg" data-title="Партия плат"><img src="assets/works/work-4.jpg" alt="Партия зелёных печатных плат" onerror="this.remove()"><span>Партия плат</span></button>
+        <button class="work-card" type="button" data-full="assets/works/work-5.jpg" data-title="Серийные модули"><img src="assets/works/work-5.jpg" alt="Серийные электронные модули" onerror="this.remove()"><span>Серийные модули</span></button>
+        <button class="work-card" type="button" data-full="assets/works/work-6.jpg" data-title="Готовые PCB"><img src="assets/works/work-6.jpg" alt="Готовые красные и зелёные PCB" onerror="this.remove()"><span>Готовые PCB</span></button>
       </div>
     </section>
-  </main>
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Закрыть">×</button>
+    <img id="lightboxImage" src="" alt="" />
+    <div class="lightbox-title" id="lightboxTitle"></div>
+  </div>
+</main>
 
   <footer class="footer">
     <div>

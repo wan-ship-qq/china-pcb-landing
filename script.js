@@ -148,3 +148,30 @@ function animate(t) {
   requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
+
+const lightbox = document.querySelector('#lightbox');
+const lightboxImage = document.querySelector('#lightboxImage');
+const lightboxTitle = document.querySelector('#lightboxTitle');
+const lightboxClose = document.querySelector('.lightbox-close');
+function closeLightbox() {
+  lightbox?.classList.remove('open');
+  lightbox?.setAttribute('aria-hidden', 'true');
+  if (lightboxImage) lightboxImage.src = '';
+}
+document.querySelectorAll('.work-card[data-full]').forEach((card) => {
+  card.addEventListener('click', () => {
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = card.dataset.full;
+    lightboxImage.alt = card.querySelector('img')?.alt || card.dataset.title || 'Фото работы';
+    if (lightboxTitle) lightboxTitle.textContent = card.dataset.title || '';
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+  });
+});
+lightboxClose?.addEventListener('click', closeLightbox);
+lightbox?.addEventListener('click', (event) => {
+  if (event.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeLightbox();
+});
