@@ -66,3 +66,8 @@ h1,h2,h3,p{margin-top:0}h1,h2{font-family:var(--font-display);font-weight:700;le
 
 /* FAQ fix: do not stretch neighboring questions when one answer is open */
 .faq-list{align-items:start}.faq-list details{align-self:start}
+
+
+/* FAQ columns: two independent vertical accordions */
+.faq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px}.faq-column{display:grid;gap:18px;align-content:start}.faq-list details{align-self:start}
+@media (max-width:980px){.faq-list{grid-template-columns:1fr}}
