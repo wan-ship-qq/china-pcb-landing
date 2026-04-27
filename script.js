@@ -136,3 +136,14 @@ if (mobileCta && hero) {
   window.addEventListener('resize', toggleMobileCta);
   toggleMobileCta();
 }
+
+// FAQ accordion: keep only the selected question open
+const faqItems = document.querySelectorAll('.faq-list details');
+faqItems.forEach((item) => {
+  item.addEventListener('toggle', () => {
+    if (!item.open) return;
+    faqItems.forEach((other) => {
+      if (other !== item) other.open = false;
+    });
+  });
+});
