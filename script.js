@@ -137,12 +137,13 @@ if (mobileCta && hero) {
   toggleMobileCta();
 }
 
-// FAQ accordion: keep only the selected question open
+// FAQ accordion: each column works independently
 const faqItems = document.querySelectorAll('.faq-list details');
 faqItems.forEach((item) => {
   item.addEventListener('toggle', () => {
     if (!item.open) return;
-    faqItems.forEach((other) => {
+    const columnItems = item.closest('.faq-column')?.querySelectorAll('details') || faqItems;
+    columnItems.forEach((other) => {
       if (other !== item) other.open = false;
     });
   });
