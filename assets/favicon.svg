@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="16" fill="#05070B"/>
+  <rect x="8.5" y="8.5" width="47" height="47" rx="12.5" fill="url(#card)" stroke="#BFEFFF" stroke-opacity="0.36"/>
+  <path d="M19 22H30C35.5 22 39 25.1 39 30C39 34.9 35.5 38 30 38H25V45H19V22ZM25 27V33H30C31.9 33 33 31.9 33 30C33 28.1 31.9 27 30 27H25Z" fill="#EAF9FF"/>
+  <path d="M43 18V25M43 39V46M18 18H25M39 18H46M18 46H25M39 46H46M18 32H11M53 32H46" stroke="#BFEFFF" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="43" cy="32" r="3.5" fill="#BFEFFF"/>
+  <circle cx="43" cy="32" r="8.5" stroke="#BFEFFF" stroke-opacity="0.18"/>
+  <defs>
+    <linearGradient id="card" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#BFEFFF" stop-opacity="0.03"/>
+    </linearGradient>
+  </defs>
+</svg>
