@@ -1,3 +1,21 @@
+
+const menuToggle = document.querySelector('#menuToggle');
+const mobileMenu = document.querySelector('#mobileMenu');
+function closeMobileMenu() {
+  mobileMenu?.classList.remove('is-open');
+  mobileMenu?.setAttribute('aria-hidden', 'true');
+  menuToggle?.setAttribute('aria-expanded', 'false');
+}
+menuToggle?.addEventListener('click', () => {
+  const isOpen = mobileMenu?.classList.toggle('is-open');
+  mobileMenu?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+  menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+mobileMenu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileMenu));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeMobileMenu();
+});
+
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
 fileInput?.addEventListener('change', () => {

@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Wix+Madefor+Display:wght@500;600;700;800&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260427-conversion" />
+  <link rel="stylesheet" href="styles.css?v=20260514-audit-fixes" />
 </head>
 <body>
   <div class="pcb-traces" aria-hidden="true"></div>
@@ -30,7 +30,16 @@
       <a href="#faq">FAQ</a>
     </nav>
     <a class="top-cta" href="#upload">Загрузить Gerber</a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu">Меню</button>
   </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#how">Как работает</a>
+    <a href="#benefits">Преимущества</a>
+    <a href="#files">Файлы</a>
+    <a href="#upload">Заявка</a>
+    <a href="#faq">FAQ</a>
+  </div>
 
   <main>
     <section id="hero" class="hero section">
@@ -42,7 +51,7 @@
           <span>2–6 LAYERS</span>
           <span>LEAD TIME 2+ DAYS</span>
         </div>
-        <h1>Рассчитаем производство PCB/PCBA в Китае и доставку в Россию</h1>
+        <h1>Закажем платы в Китае под ключ: оплата и доставка в РФ</h1>
         <p class="lead">Проверим Gerber, BOM и CPL, подберём производство, согласуем замену компонентов, доставку и финальную стоимость до запуска заказа.</p>
         <div class="hero-facts">
           <span>Прототипы от 5 шт.</span>
@@ -161,7 +170,11 @@
         </div>
         <label>Комментарий<textarea name="fi-text-comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа. Для заказа компонентов загрузите файл с названием и количеством."></textarea></label>
         <input type="hidden" name="fi-text-source" value="china-pcb-landing" />
-        <p class="form-note">Файлы не публикуем. После отправки свяжемся с уточнениями и предварительной сметой.</p>
+        <label class="consent-check">
+          <input name="fi-consent" type="checkbox" required />
+          <span>Согласен на обработку контактных данных и файлов для расчёта заказа. Файлы не публикуем и используем только для подготовки сметы.</span>
+        </label>
+        <p class="form-note">После отправки свяжемся с уточнениями и предварительной сметой.</p>
         <button class="btn primary form-btn" type="submit">Отправить заявку</button>
         <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       </form>
@@ -219,6 +232,7 @@
     <div class="footer-links">
       <a href="https://www.avito.ru/moskva/predlozheniya_uslug/zakaz_pechatnyh_plat_na_jlcpcb._oplata_i_dostavka_7260492690" target="_blank" rel="noreferrer">Авито</a>
       <a href="https://t.me/crptdvd" target="_blank" rel="noreferrer">Telegram</a>
+      <span class="privacy-note">Данные и файлы из формы используются только для связи и расчёта заказа.</span>
     </div>
   </footer>
 
@@ -253,6 +267,6 @@
   </script>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script type="module" src="script.js?v=20260427-conversion"></script>
+  <script type="module" src="script.js?v=20260514-audit-fixes"></script>
 </body>
 </html>
