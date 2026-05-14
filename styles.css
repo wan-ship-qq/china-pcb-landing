@@ -109,8 +109,7 @@ h1,h2,h3,p{margin-top:0}h1,h2{font-family:var(--font-display);font-weight:700;le
 /* Delivery icons: user-provided SVGs matched to names */
 .delivery-icon{display:grid;place-items:center;width:64px;height:64px;border:0;background:transparent;box-shadow:none}
 .delivery-icon:before,.delivery-icon:after{display:none}
-.delivery-icon img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(150,230,255,.18));opacity:.94}
+.delivery-icon img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(150,230,255,.18));opacity:.94}
 .delivery-grid article:hover .delivery-icon{border-color:transparent;box-shadow:none}
 .delivery-grid article:hover .delivery-icon img{opacity:1;filter:drop-shadow(0 0 16px rgba(150,230,255,.28))}
 
-.delivery-icon .delivery-air-img{width:52px;height:52px}
