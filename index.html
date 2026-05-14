@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Wix+Madefor+Display:wght@500;600;700;800&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260514-audit-fixes" />
+  <link rel="stylesheet" href="styles.css?v=20260514-speed" />
 </head>
 <body>
   <div class="pcb-traces" aria-hidden="true"></div>
@@ -64,23 +64,9 @@
           <a class="btn secondary" href="https://t.me/crptdvd" target="_blank" rel="noreferrer">Написать в Telegram</a>
         </div>
       </div>
-      <div class="hero-visual model-stage" aria-label="Интерактивная 3D-модель платы">
-        <model-viewer
-          id="pcbModel"
-          src="assets/models/drone.glb"
-          camera-controls
-          auto-rotate
-          auto-rotate-delay="1200"
-          rotation-per-second="18deg"
-          interaction-prompt="auto"
-          shadow-intensity="0.45"
-          exposure="1.35"
-          tone-mapping="commerce"
-          camera-orbit="0deg 68deg auto"
-          min-camera-orbit="auto 20deg auto"
-          max-camera-orbit="auto 88deg auto"
-          ar="false">
-        </model-viewer>
+      <div class="hero-visual model-stage" id="modelStage" aria-label="Превью печатной платы" data-model="assets/models/drone.glb">
+        <img class="hero-poster" src="assets/pcb-board.jpg" width="1000" height="750" alt="3D-превью печатной платы" decoding="async" fetchpriority="high" />
+        <button class="model-load" id="modelLoad" type="button">Открыть 3D-просмотр</button>
       </div>
     </section>
 
@@ -186,12 +172,12 @@
         <h2>Наши поставки</h2>
       </div>
       <div class="work-grid">
-        <button class="work-card" type="button" data-full="assets/works/work-1.jpg"><img src="assets/works/work-1.jpg" alt="Упакованный заказ печатных плат" onerror="this.remove()"></button>
-        <button class="work-card" type="button" data-full="assets/works/work-2.jpg"><img src="assets/works/work-2.jpg" alt="Коробки JLCPCB в поставке" onerror="this.remove()"></button>
-        <button class="work-card" type="button" data-full="assets/works/work-3.jpg"><img src="assets/works/work-3.jpg" alt="Доставка груза из Китая" onerror="this.remove()"></button>
-        <button class="work-card" type="button" data-full="assets/works/work-4.jpg"><img src="assets/works/work-4.jpg" alt="Партия зелёных печатных плат" onerror="this.remove()"></button>
-        <button class="work-card" type="button" data-full="assets/works/work-5.jpg"><img src="assets/works/work-5.jpg" alt="Серийные электронные модули" onerror="this.remove()"></button>
-        <button class="work-card" type="button" data-full="assets/works/work-6.jpg"><img src="assets/works/work-6.jpg" alt="Готовые красные и зелёные PCB" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-1.jpg"><img src="assets/works/work-1.jpg" width="507" height="900" loading="lazy" decoding="async" alt="Упакованный заказ печатных плат" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-2.jpg"><img src="assets/works/work-2.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Коробки JLCPCB в поставке" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-3.jpg"><img src="assets/works/work-3.jpg" width="507" height="900" loading="lazy" decoding="async" alt="Доставка груза из Китая" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-4.jpg"><img src="assets/works/work-4.jpg" width="507" height="900" loading="lazy" decoding="async" alt="Партия зелёных печатных плат" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-5.jpg"><img src="assets/works/work-5.jpg" width="395" height="700" loading="lazy" decoding="async" alt="Серийные электронные модули" onerror="this.remove()"></button>
+        <button class="work-card" type="button" data-full="assets/works/work-6.jpg"><img src="assets/works/work-6.jpg" width="1000" height="661" loading="lazy" decoding="async" alt="Готовые красные и зелёные PCB" onerror="this.remove()"></button>
       </div>
     </section>
 
@@ -266,7 +252,6 @@
   }
   </script>
 
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <script type="module" src="script.js?v=20260514-audit-fixes"></script>
+  <script type="module" src="script.js?v=20260514-speed"></script>
 </body>
 </html>

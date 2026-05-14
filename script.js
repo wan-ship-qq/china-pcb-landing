@@ -166,3 +166,29 @@ faqItems.forEach((item) => {
     });
   });
 });
+
+
+const modelStage = document.querySelector('#modelStage');
+const modelLoad = document.querySelector('#modelLoad');
+modelLoad?.addEventListener('click', async () => {
+  if (!modelStage || modelStage.querySelector('model-viewer')) return;
+  modelLoad.textContent = 'Загружаем 3D...';
+  await import('https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js');
+  const viewer = document.createElement('model-viewer');
+  viewer.id = 'pcbModel';
+  viewer.src = modelStage.dataset.model || 'assets/models/drone.glb';
+  viewer.setAttribute('camera-controls', '');
+  viewer.setAttribute('auto-rotate', '');
+  viewer.setAttribute('auto-rotate-delay', '1200');
+  viewer.setAttribute('rotation-per-second', '18deg');
+  viewer.setAttribute('interaction-prompt', 'auto');
+  viewer.setAttribute('shadow-intensity', '0.45');
+  viewer.setAttribute('exposure', '1.35');
+  viewer.setAttribute('tone-mapping', 'commerce');
+  viewer.setAttribute('camera-orbit', '0deg 68deg auto');
+  viewer.setAttribute('min-camera-orbit', 'auto 20deg auto');
+  viewer.setAttribute('max-camera-orbit', 'auto 88deg auto');
+  viewer.setAttribute('ar', 'false');
+  modelStage.appendChild(viewer);
+  modelStage.classList.add('is-3d');
+});
