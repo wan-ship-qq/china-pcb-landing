@@ -24,8 +24,12 @@ const DEFAULT_FILE_LABEL = 'zip, rar, 7z, gerber, gbr, xlsx, xls, csv, pdf, txt'
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
 function updateFileName() {
+  const hasFiles = Boolean(fileInput?.files?.length);
   const files = [...(fileInput?.files || [])].map((file) => file.name).join(', ');
-  if (fileName) fileName.textContent = files || DEFAULT_FILE_LABEL;
+  if (fileName) {
+    fileName.textContent = files || DEFAULT_FILE_LABEL;
+    fileName.classList.toggle('has-file', hasFiles);
+  }
 }
 fileInput?.addEventListener('change', updateFileName);
 
