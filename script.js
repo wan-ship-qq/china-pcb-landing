@@ -16,52 +16,84 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMobileMenu();
 });
 
+const WORKER_URL = 'https://shy-hall-053b.wannahi459.workers.dev';
+const MAX_FILE_SIZE = 20 * 1024 * 1024;
+const ALLOWED_EXTENSIONS = ['zip', 'rar', '7z', 'gerber', 'gbr', 'xlsx', 'xls', 'csv', 'pdf', 'txt'];
+const DEFAULT_FILE_LABEL = 'ZIP / RAR / 7Z / GBR / BOM / CPL';
+
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
-fileInput?.addEventListener('change', () => {
-  const files = [...fileInput.files].map(f => f.name).join(', ');
-  fileName.textContent = files || 'ZIP / RAR / 7Z / GBR / BOM / CPL';
-});
+function updateFileName() {
+  const files = [...(fileInput?.files || [])].map((file) => file.name).join(', ');
+  if (fileName) fileName.textContent = files || DEFAULT_FILE_LABEL;
+}
+fileInput?.addEventListener('change', updateFileName);
 
-const quoteForm = document.querySelector('#quoteForm');
+const quoteForm = document.querySelector('#pcb-form');
 const formStatus = document.querySelector('#formStatus');
+function setFormStatus(message, type = '') {
+  if (!formStatus) return;
+  formStatus.textContent = message;
+  formStatus.className = `form-status${type ? ` ${type}` : ''}`;
+}
+function getFileExtension(fileName = '') {
+  return fileName.split('.').pop()?.toLowerCase() || '';
+}
 quoteForm?.addEventListener('submit', async (event) => {
-  const action = quoteForm.getAttribute('action') || '';
-  if (action.includes('YOUR_FORM_ID')) {
-    event.preventDefault();
-    formStatus.textContent = 'Форма ещё не подключена: нужен реальный endpoint Formspree/Getform.';
-    formStatus.className = 'form-status error';
-    return;
-  }
   event.preventDefault();
-  const email = quoteForm.querySelector('[name="fi-sender-email"]')?.value.trim();
-  const contact = quoteForm.querySelector('[name="fi-text-contact"]')?.value.trim();
-  if (!email && !contact) {
-    formStatus.textContent = 'Укажите email или контакт в Telegram / MAX / телефоне.';
-    formStatus.className = 'form-status error';
-    quoteForm.querySelector('[name="fi-text-contact"]')?.focus();
+
+  const files = [...(fileInput?.files || [])];
+  const email = quoteForm.querySelector('[name="email"]')?.value.trim();
+  const phone = quoteForm.querySelector('[name="phone"]')?.value.trim();
+  const consent = quoteForm.querySelector('[name="consent"]');
+
+  if (!files.length) {
+    setFormStatus('Прикрепите файл для расчёта.', 'error');
+    fileInput?.focus();
     return;
   }
+
+  const oversizedFile = files.find((file) => file.size > MAX_FILE_SIZE);
+  if (oversizedFile) {
+    setFormStatus(`Файл «${oversizedFile.name}» больше 20 MB. Загрузите файл меньшего размера.`, 'error');
+    return;
+  }
+
+  const forbiddenFile = files.find((file) => !ALLOWED_EXTENSIONS.includes(getFileExtension(file.name)));
+  if (forbiddenFile) {
+    setFormStatus('Недопустимый формат файла. Разрешены: zip, rar, 7z, gerber, gbr, xlsx, xls, csv, pdf, txt.', 'error');
+    return;
+  }
+
+  if (!consent?.checked) {
+    setFormStatus('Подтвердите согласие на обработку контактных данных и файлов.', 'error');
+    consent?.focus();
+    return;
+  }
+
+  if (!email && !phone) {
+    setFormStatus('Укажите email или контакт в Telegram / MAX / телефоне.', 'error');
+    quoteForm.querySelector('[name="phone"]')?.focus();
+    return;
+  }
+
   const button = quoteForm.querySelector('button[type="submit"]');
   button.disabled = true;
   button.textContent = 'Отправляем...';
-  formStatus.textContent = '';
-  formStatus.className = 'form-status';
+  setFormStatus('');
+
   try {
-    const response = await fetch(action, {
+    const response = await fetch(WORKER_URL, {
       method: 'POST',
-      body: new FormData(quoteForm),
-      headers: { Accept: 'application/json' }
+      body: new FormData(quoteForm)
     });
-    if (!response.ok) throw new Error('send failed');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
     quoteForm.reset();
-    fileName.textContent = 'ZIP / RAR / 7Z / GBR / BOM / CPL';
-    formStatus.textContent = 'Заявка отправлена. Мы получили файлы и свяжемся с вами после проверки.';
-    formStatus.className = 'form-status ok';
+    updateFileName();
+    setFormStatus('Заявка отправлена. Мы свяжемся с вами после проверки файлов.', 'ok');
   } catch (error) {
-    const text = encodeURIComponent('Здравствуйте! Хочу рассчитать производство PCB/PCBA.\n\nТип заказа: PCB / PCBA / компоненты\nКоличество:\nСрок:\nДоставка: авиа / авто-экспресс / авто\nФайлы: Gerber / BOM / CPL прикреплю сообщением\nКомментарий:');
-    formStatus.innerHTML = `Не удалось отправить форму. <a href="https://t.me/crptdvd?text=${text}" target="_blank" rel="noreferrer">Отправить через Telegram</a>`;
-    formStatus.className = 'form-status error';
+    setFormStatus('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз. Если ошибка повторится — напишите нам в Telegram.', 'error');
   } finally {
     button.disabled = false;
     button.textContent = 'Отправить заявку';
@@ -139,7 +171,7 @@ dropzone?.addEventListener('drop', (event) => {
   if (!fileInput || !event.dataTransfer?.files?.length) return;
 
   fileInput.files = event.dataTransfer.files;
-  fileName.textContent = [...fileInput.files].map(f => f.name).join(', ');
+  updateFileName();
 });
 
 const mobileCta = document.querySelector('#mobileCta');

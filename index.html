@@ -140,22 +140,22 @@
         <h2>Загрузите файлы</h2>
         <p>Для расчёта PCB загрузите Gerber/Drill. Для монтажа — BOM и CPL. Можно архивом.</p>
       </div>
-      <form class="quote-form" id="quoteForm" action="https://forminit.com/f/hn89mdl4qm2" method="POST" enctype="multipart/form-data">
+      <form class="quote-form" id="pcb-form" action="https://shy-hall-053b.wannahi459.workers.dev" method="POST" enctype="multipart/form-data">
         <label class="dropzone" for="fileInput">
-          <input id="fileInput" name="fi-file-gerber[]" type="file" accept=".zip,.rar,.7z,.gbr,.txt,.csv,.xls,.xlsx,.pdf" multiple />
+          <input id="fileInput" name="file" type="file" accept=".zip,.rar,.7z,.gerber,.gbr,.xlsx,.xls,.csv,.pdf,.txt" multiple />
           <span class="drop-icon">⌁</span>
           <b>Нажмите для выбора файла или перетащите архив</b>
           <small id="fileName">ZIP / RAR / 7Z / GBR / BOM / CPL</small>
         </label>
         <div class="form-grid">
-          <label>Имя<input name="fi-sender-fullName" type="text" placeholder="Владимир" required /></label>
-          <label>Email<input name="fi-sender-email" type="email" placeholder="name@example.com" /></label>
-          <label>Телефон / Telegram / MAX<input name="fi-text-contact" type="text" placeholder="@username или номер" /></label>
+          <label>Имя<input name="name" type="text" placeholder="Владимир" required /></label>
+          <label>Email<input name="email" type="email" placeholder="name@example.com" /></label>
+          <label>Телефон / Telegram / MAX<input name="phone" type="text" placeholder="@username или номер" /></label>
         </div>
-        <label>Комментарий<textarea name="fi-text-comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа. Для заказа компонентов загрузите файл с названием и количеством."></textarea></label>
-        <input type="hidden" name="fi-text-source" value="china-pcb-landing" />
+        <label>Комментарий<textarea name="comment" rows="5" placeholder="Количество, цвет маски, толщина, сроки, BOM/CPL для монтажа. Для заказа компонентов загрузите файл с названием и количеством."></textarea></label>
+        <input type="hidden" name="source" value="china-pcb-landing" />
         <label class="consent-check">
-          <input name="fi-consent" type="checkbox" required />
+          <input name="consent" type="checkbox" required />
           <span>Согласен на обработку контактных данных и файлов для расчёта. Файлы используем только для подготовки сметы.</span>
         </label>
         <button class="btn primary form-btn" type="submit">Отправить заявку</button>
