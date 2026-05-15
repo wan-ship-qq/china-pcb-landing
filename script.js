@@ -19,7 +19,7 @@ document.addEventListener('keydown', (event) => {
 const WORKER_URL = 'https://shy-hall-053b.wannahi459.workers.dev';
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
 const ALLOWED_EXTENSIONS = ['zip', 'rar', '7z', 'gerber', 'gbr', 'xlsx', 'xls', 'csv', 'pdf', 'txt'];
-const DEFAULT_FILE_LABEL = 'ZIP / RAR / 7Z / GBR / BOM / CPL';
+const DEFAULT_FILE_LABEL = 'zip, rar, 7z, gerber, gbr, xlsx, xls, csv, pdf, txt';
 
 const fileInput = document.querySelector('#fileInput');
 const fileName = document.querySelector('#fileName');
