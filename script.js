@@ -35,6 +35,13 @@ fileInput?.addEventListener('change', updateFileName);
 
 const quoteForm = document.querySelector('#pcb-form');
 const formStatus = document.querySelector('#formStatus');
+function getTurnstileToken() {
+  return quoteForm?.querySelector('[name="cf-turnstile-response"]')?.value.trim() || '';
+}
+function resetTurnstile() {
+  window.pcbTurnstile = { ...(window.pcbTurnstile || {}), ready: false };
+  window.turnstile?.reset?.();
+}
 function setFormStatus(message, type = '') {
   if (!formStatus) return;
   formStatus.textContent = message;
@@ -81,6 +88,12 @@ quoteForm?.addEventListener('submit', async (event) => {
     return;
   }
 
+  if (!getTurnstileToken()) {
+    setFormStatus('Антиспам-проверка ещё не завершилась. Подождите пару секунд и отправьте заявку ещё раз.', 'error');
+    resetTurnstile();
+    return;
+  }
+
   const button = quoteForm.querySelector('button[type="submit"]');
   button.disabled = true;
   button.textContent = 'Отправляем...';
@@ -99,6 +112,7 @@ quoteForm?.addEventListener('submit', async (event) => {
   } catch (error) {
     setFormStatus('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз. Если ошибка повторится — напишите нам в Telegram.', 'error');
   } finally {
+    resetTurnstile();
     button.disabled = false;
     button.textContent = 'Отправить заявку';
   }
