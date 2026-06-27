@@ -1,0 +1,6 @@
+name = "shy-hall-053b"
+main = "worker/src/index.js"
+compatibility_date = "2026-06-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://pcb-supply.ru"

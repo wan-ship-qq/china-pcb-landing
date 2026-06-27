@@ -15,15 +15,30 @@ python3 -m http.server 3000
 
 ## Настройка формы
 
-В `index.html` замени:
+Форма отправляет заявки на Cloudflare Worker:
 
-```html
-action="https://forminit.com/f/hn89mdl4qm2"
+```txt
+https://shy-hall-053b.wannahi459.workers.dev
 ```
 
-на свой endpoint Forminit.
+Worker принимает `multipart/form-data`, проверяет Cloudflare Turnstile и отправляет заявку в Telegram. Файлы пересылаются через `sendDocument`, поэтому их можно скачать прямо из Telegram.
 
-Поля формы готовы: имя, email, телефон/Telegram, комментарий и файлы. После подключения реального endpoint появится AJAX-отправка и сообщение об успехе/ошибке.
+Нужные секреты Worker:
+
+```txt
+TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID
+TURNSTILE_SECRET_KEY
+```
+
+Деплой:
+
+```bash
+npx wrangler secret put TELEGRAM_BOT_TOKEN
+npx wrangler secret put TELEGRAM_CHAT_ID
+npx wrangler secret put TURNSTILE_SECRET_KEY
+npm run worker:deploy
+```
 
 ## Фото работ
 

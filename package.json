@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "python3 -m http.server 3000",
-    "serve": "python3 -m http.server 3000"
+    "serve": "python3 -m http.server 3000",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy"
   }
 }
