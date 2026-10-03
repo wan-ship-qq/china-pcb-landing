@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Wix+Madefor+Display:wght@500;600;700;800&family=Wix+Madefor+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260516-antispam-ui" />
+  <link rel="stylesheet" href="styles.css?v=20261003-pik" />
   <script>
     window.pcbTurnstile = { ready: false };
     window.onPcbTurnstileSuccess = () => {
@@ -147,10 +147,11 @@
     </section>
 
     <section id="upload" class="section upload-section">
-      <div class="section-head">
+      <div class="section-head upload-intro">
         <span class="tag">QUOTE REQUEST</span>
         <h2>Загрузите файлы</h2>
         <p>Для расчёта PCB загрузите Gerber. Для монтажа — BOM и CPL. Лучше архивом.</p>
+        <img class="upload-mascot" src="assets/pik-upload.webp" width="384" height="384" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </div>
       <form class="quote-form" id="pcb-form" action="https://shy-hall-053b.wannahi459.workers.dev" method="POST" enctype="multipart/form-data">
         <label class="dropzone" for="fileInput">
